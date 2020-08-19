@@ -1,6 +1,20 @@
+document.addEventListener('DOMContentLoaded', (event) => {
+  let squares = document.getElementsByClassName('square');
+  for (let i = 0; i < 9; i++) {
+    let id = squares[i].id;
+    let square = document.getElementById(id)
+    square.addEventListener("click", addXO(event));
+  }
+});
+
 let gameValues = {
   turn: 1,
   selectedBoxes: []
+}
+
+let playerScore = {
+  playerX: [],
+  playerO: []
 }
 
 const addXO = (event) => {
@@ -25,6 +39,7 @@ const addX = (id) => {
   document.getElementById('message').innerHTML = 'Now it is O\'s turn!';
   gameValues.turn++;
   gameValues.selectedBoxes.push(id);
+  playerScore.playerX.push(parseInt(id.slice(3)));
 }
 
 const addO = (id) => {
@@ -32,6 +47,7 @@ const addO = (id) => {
   document.getElementById('message').innerHTML = 'Time for X to go!';
   gameValues.turn++;
   gameValues.selectedBoxes.push(id);
+  playerScore.playerO.push(id.slice(3));
 }
 
 
@@ -45,3 +61,5 @@ const gameReset = () => {
   }
   document.getElementById('message').innerHTML = 'X goes first!';
 }
+
+
