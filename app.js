@@ -32,9 +32,13 @@ const addXO = (event) => {
   if (gameValues.selectedBoxes.indexOf(id) === -1) {
     if (gameValues.turn % 2 === 1) {
       addX(id);
+      tieCheck(playerX);
     } else {
       addO(id);
+      tieCheck(playerO);
     }
+  } else if (turn === 10) {
+
   } else {
     document.getElementById('message').innerHTML = 'That square is not available! Choose again!';
   }
@@ -57,6 +61,7 @@ const addO = (id) => {
   gameValues.selectedBoxes.push(id);
   let boxString = id.slice(3);
   winnerCheck(boxString, playerO, 'O');
+
 }
 
 const winnerCheck = (box, nameObj, player) => {
@@ -71,6 +76,22 @@ const winnerCheck = (box, nameObj, player) => {
         }, 1800);
       }
     }
+  }
+}
+
+const tieCheck = (player, noWin) => {
+  for (let key in player) {
+    if (player[key] !== 3) {
+      noWin = true;
+    }
+  }
+
+  if (noWin === true && gameValues.turn === 10) {
+    document.getElementById('message').innerHTML = `There is a tie! NO ONE wins!!`;
+    deactivateClick();
+    setTimeout(() => {
+      document.getElementById('message').innerHTML = 'Press New Game! to play again!';
+    }, 2500);
   }
 }
 
