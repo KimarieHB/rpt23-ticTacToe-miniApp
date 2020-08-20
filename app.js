@@ -38,13 +38,11 @@ const addXO = (event) => {
   let id = event.target.id;
 
   if (gameValues.selectedBoxes.indexOf(id) === -1) {
-  
     if (gameValues.turn % 2 === 1) {
       addX(id);
     } else {
       addO(id);
     }
-    
   } else {
     document.getElementById('message').innerHTML = 'That square is not available! Choose again!';
   }
@@ -75,9 +73,20 @@ const winnerCheck = (box, nameObj, player) => {
       nameObj[key] += 1;
       if (nameObj[key] === 3) {
         document.getElementById('message').innerHTML = `We have a winner! Player ${player} wins!!`;
-        setTimeout(gameReset, 1500);
+        deactivateClick();
+        setTimeout(() => {
+          document.getElementById('message').innerHTML = 'Press New Game! to play again!';
+        }, 1800);
       }
     }
+  }
+}
+
+const deactivateClick = () => {
+  let squares = document.getElementsByClassName('square');
+  for (let i = 0; i < 9; i++) {
+    let id = squares[i].id;
+    document.getElementById(id).removeAttribute('onClick');
   }
 }
 
@@ -88,6 +97,7 @@ const gameReset = () => {
   for (let i = 0; i < 9; i++) {
     let id = squares[i].id;
     document.getElementById(id).innerHTML = '';
+    document.getElementById(id).setAttribute('onClick', 'addXO(event)');
   }
   for (let key in playerX) {
     playerX[key] = 0;
