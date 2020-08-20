@@ -1,11 +1,3 @@
-document.addEventListener('DOMContentLoaded', (event) => {
-  let squares = document.getElementsByClassName('square');
-  for (let i = 0; i < 9; i++) {
-    let id = squares[i].id;
-    let square = document.getElementById(id)
-    square.addEventListener("click", addXO(event));
-  }
-});
 
 let gameValues = {
   turn: 1,
